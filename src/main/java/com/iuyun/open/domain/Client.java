@@ -1,19 +1,22 @@
 package com.iuyun.open.domain;
 
 import com.iuyun.open.config.Config;
-
+import com.iuyun.open.model.request.collection.CollectDataRequest;
+import com.iuyun.open.model.response.BaseResponse;
 
 public class Client {
 
-    private Config config;
-
     public Client(Config config) {
-        this.config = config;
+        OpenapiUtil.setConfig(config);
     }
 
-    public DataCollection dataCollection() {
-        DataCollection dataCollection = new DataCollection(config);
-        return dataCollection;
+    /**
+     * 数据采集
+     *
+     * @param request
+     */
+    public void collectData(CollectDataRequest request) {
+        OpenapiUtil.doRPCRequest("/collect/collectData", request, BaseResponse.class);
     }
 
 
