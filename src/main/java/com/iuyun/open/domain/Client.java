@@ -14,7 +14,7 @@ public class Client {
     /**
      * 数据采集
      *
-     * @param request
+     * @param request 数据采集入参
      */
     public void collectData(CollectDataRequest request) {
         OpenapiUtil.doRPCRequest("/collect/collectData", request, BaseResponse.class);
