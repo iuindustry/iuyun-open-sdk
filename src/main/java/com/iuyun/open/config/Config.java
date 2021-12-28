@@ -12,7 +12,7 @@ public class Config {
         config.setAppId(appId);
         config.setSecret(secret);
         config.setEndpoint(endpoint);
-        return new Config();
+        return config;
     }
 
     public String getEndpoint() {

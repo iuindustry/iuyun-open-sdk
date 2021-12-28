@@ -48,7 +48,7 @@ public class Main {
         CollectDataRequest request = new CollectDataRequest();
         request.setDataCode("001");
         request.setDataTime("2021-12-26 20:48:10");
-        request.setStatisticsValue(BigDecimal.ONE);
+        request.setStatisticsValue("1");
         client.collectData(request);
     }
 }

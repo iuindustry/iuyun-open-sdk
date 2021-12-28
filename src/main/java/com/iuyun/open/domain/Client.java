@@ -7,6 +7,7 @@ import com.iuyun.open.model.response.BaseResponse;
 public class Client {
 
     public Client(Config config) {
+
         OpenapiUtil.setConfig(config);
     }
 

@@ -33,7 +33,7 @@ public class CollectDataRequest extends BaseRequest {
     /**
      * 统计结果
      */
-    private BigDecimal statisticsValue;
+    private String statisticsValue;
 
     public String getDataCode() {
         return dataCode;
@@ -67,11 +67,11 @@ public class CollectDataRequest extends BaseRequest {
         this.ruleStatisticsId = ruleStatisticsId;
     }
 
-    public BigDecimal getStatisticsValue() {
+    public String getStatisticsValue() {
         return statisticsValue;
     }
 
-    public void setStatisticsValue(BigDecimal statisticsValue) {
+    public void setStatisticsValue(String statisticsValue) {
         this.statisticsValue = statisticsValue;
     }
 }
