@@ -5,7 +5,9 @@
 <h1 align="center">IUYUN OPEN SDK for Java</h1>
 欢迎使用 IUYUN OPEN SDK for Java 。IUYUN OPEN SDK for Java 让您快速接入iu工业云平台。
 这里向您介绍如何获取 IUYUN OPEN SDK for Java 并开始调用。
-如果您在使用 IUYUN OPEN SDK for Java 的过程中遇到任何问题，欢迎在当前 GitHub [提交 Issues](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 。
+如果您在使用 IUYUN OPEN SDK for Java 的过程中遇到任何问题，欢迎在当前 GitHub
+
+[提交 Issue](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 
 
 ## 环境要求
 1. IUYUN OPEN SDK for Java 需要1.6以上的JDK。
@@ -23,7 +25,7 @@
 
 ## 快速使用
 
-以下这个代码示例向您展示了调用 IUYUN SDK for Java 的3个主要步骤：
+以下这个代码示例向您展示了调用 IUYUN OPEN SDK for Java 的3个主要步骤：
 1. 创建Client实例并初始化。
 2. 创建API请求并设置参数。
 3. 发起请求并处理应答或异常。
@@ -35,7 +37,6 @@ import com.iuyun.open.config.Config;
 import com.iuyun.open.domain.Client;
 import com.iuyun.open.model.request.collection.CollectDataRequest;
 
-import java.math.BigDecimal;
 
 public class Main {
     public static void main(String[] args) {
