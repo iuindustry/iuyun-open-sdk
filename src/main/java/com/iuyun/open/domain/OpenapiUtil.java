@@ -58,7 +58,7 @@ class OpenapiUtil {
     }
 
 
-    private static String getToken() {
+    private synchronized static String getToken() {
         if (System.currentTimeMillis() < expiresIn) {
             return token;
         }
@@ -93,7 +93,7 @@ class OpenapiUtil {
             e.printStackTrace();
         }
         token = result.getJSONObject("data").getString("accessToken");
-        expiresIn = result.getJSONObject("data").getLong("expiresIn");
+        expiresIn = (result.getJSONObject("data").getLong("expiresIn") - 300) * 1000 + System.currentTimeMillis();
         resp.close();
         return token;
     }
