@@ -5,7 +5,7 @@
 <h1 align="center">IUYUN OPEN SDK for Java</h1>
 欢迎使用 IUYUN OPEN SDK for Java 。IUYUN OPEN SDK for Java 让您快速接入iu工业云平台。
 这里向您介绍如何获取 IUYUN OPEN SDK for Java 并开始调用。
-如果您在使用 IUYUN OPEN SDK for Java 的过程中遇到任何问题，欢迎在当前 GitHub [提交 Issues](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 。
+如果您在使用 IUYUN OPEN SDK for Java 的过程中遇到任何问题，欢迎在当前 GitHub [提交 Issue](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 
 
 ## 环境要求
 1. IUYUN OPEN SDK for Java 需要1.6以上的JDK。
