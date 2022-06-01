@@ -1,10 +1,13 @@
 package com.iuyun.open.domain;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.TypeReference;
 import com.iuyun.open.config.Config;
 import com.iuyun.open.exception.BusinessException;
 import com.iuyun.open.model.request.BaseRequest;
 import com.iuyun.open.model.response.BaseResponse;
+import com.iuyun.open.model.response.ResponseEntity;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,16 +22,17 @@ class OpenapiUtil {
 
     private volatile static Long expiresIn = 0L;
 
-    public static <T extends BaseResponse> T doRPCRequest(String url, BaseRequest request, Class<T> response) {
+    public static <T extends BaseResponse> T doRPCRequest(String url, BaseRequest request, TypeReference<ResponseEntity<T>> responseType) {
         if (StringUtils.isBlank(request.getRequestId())) {
             request.setRequestId(UUID.randomUUID().toString().replace("-", ""));
         }
+
         OkHttpClient client = new OkHttpClient();
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, JSONObject.toJSONString(request));
+        MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(jsonMediaType, JSON.toJSONString(request));
         Request.Builder builder = new Request.Builder()
                 .url("https://" + config.getEndpoint() + url)
-                .addHeader("requestId", request.getRequestId())
+                .addHeader("X-Request-Id", request.getRequestId())
                 .addHeader("X-Access-Auth-Token", getToken())
                 .post(body);
         Request req = builder.build();
@@ -43,14 +47,17 @@ class OpenapiUtil {
         if (resp.code() != 200) {
             throw new BusinessException("error code:" + resp.code() + " message:" + resp.message() + ", e:" + resp.body().toString());
         }
-        T result = null;
+        ResponseEntity<T> result = null;
         try {
-            result = JSONObject.parseObject(resp.body().string(), response);
+            result = JSON.parseObject(resp.body().string(), responseType);
             resp.close();
+            if(!result.isSuccess()){
+                throw new BusinessException(result.getCode(),result.getException());
+            }
         } catch (IOException e) {
             throw new BusinessException("error  e:" + e);
         }
-        return result;
+        return result.getData();
     }
 
     public static void setConfig(Config config) {
@@ -64,12 +71,12 @@ class OpenapiUtil {
         }
         String tokenUrl = "https://" + config.getEndpoint() + "/auth/token";
         OkHttpClient client = new OkHttpClient();
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         TokenRequest request = new TokenRequest();
         request.setAppId(config.getAppId());
         request.setSecret(config.getSecret());
 
-        RequestBody body = RequestBody.create(JSON, JSONObject.toJSONString(request));
+        RequestBody body = RequestBody.create(jsonMediaType, JSON.toJSONString(request));
         Request.Builder builder = new Request.Builder()
                 .url(tokenUrl)
                 .addHeader("requestId", request.getRequestId())

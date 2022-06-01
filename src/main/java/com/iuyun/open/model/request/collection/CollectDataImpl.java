@@ -1,11 +1,8 @@
 package com.iuyun.open.model.request.collection;
 
-import com.iuyun.open.model.request.BaseRequest;
-
 import java.math.BigDecimal;
 
-public class CollectDataRequest extends BaseRequest implements CollectData {
-
+public class CollectDataImpl implements CollectData {
     /**
      * 数据编码
      */
@@ -40,38 +37,47 @@ public class CollectDataRequest extends BaseRequest implements CollectData {
         return dataCode;
     }
 
+    @Override
     public void setDataCode(String dataCode) {
         this.dataCode = dataCode;
     }
 
+    @Override
     public String getDataTime() {
         return dataTime;
     }
 
+    @Override
     public void setDataTime(String dataTime) {
         this.dataTime = dataTime;
     }
 
+    @Override
     public BigDecimal getDataValue() {
         return dataValue;
     }
 
+    @Override
     public void setDataValue(BigDecimal dataValue) {
         this.dataValue = dataValue;
     }
 
+    @Override
     public Long getRuleStatisticsId() {
         return ruleStatisticsId;
     }
 
+    @Override
     public void setRuleStatisticsId(Long ruleStatisticsId) {
         this.ruleStatisticsId = ruleStatisticsId;
     }
 
+    @Override
     public String getStatisticsValue() {
         return statisticsValue;
     }
 
+    @Override
     public void setStatisticsValue(String statisticsValue) {
         this.statisticsValue = statisticsValue;
     }
