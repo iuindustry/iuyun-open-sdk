@@ -29,13 +29,17 @@
 1. 创建Client实例并初始化。
 2. 创建API请求并设置参数。
 3. 发起请求并处理应答或异常。
+
 ```java
 package com.testprogram;
 
 
 import com.iuyun.open.config.Config;
 import com.iuyun.open.domain.Client;
+import com.iuyun.open.model.request.collection.BatchCollectDataRequest;
 import com.iuyun.open.model.request.collection.CollectDataRequest;
+
+import java.util.Arrays;
 
 
 public class Main {
@@ -46,11 +50,26 @@ public class Main {
                 "<your-secret>", //IU云的SECRET
                 "<your-endpoint>"); //"api.iuindustry.com"
         Client client = new Client(config);
+        //上传单个
         CollectDataRequest request = new CollectDataRequest();
         request.setDataCode("001");
         request.setDataTime("2021-12-26 20:48:10");
         request.setStatisticsValue("1");
         client.collectData(request);
+        //批量上传
+        CollectData data1 = new CollectDataImpl();
+        data1.setDataCode("001");
+        data1.setDataTime("2021-12-26 20:48:10");
+        data1.setStatisticsValue("1");
+        CollectData data2 = new CollectDataImpl();
+        data2.setDataCode("002");
+        data2.setDataTime("2021-12-26 20:49:10");
+        data2.setStatisticsValue("2");
+        BatchCollectDataRequest batchRequest = new BatchCollectDataRequest(
+                Arrays.asList(data1,data2)
+        );
+        client.batchCollectData(batchRequest);
+
     }
 }
 ```
