@@ -45,4 +45,8 @@ public class Client {
         return OpenapiUtil.doRPCRequest("/metadata/query", request, type);
     }
 
+    public void queryObsToken() {
+
+    }
+
 }
