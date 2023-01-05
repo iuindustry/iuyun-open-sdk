@@ -48,6 +48,7 @@ public class Client {
         return OpenapiUtil.doRPCRequest("/metadata/query", request, type);
     }
 
+
     /**
      * 获取临时OBS的AK/SK/SecurityToken
      *
@@ -71,5 +72,6 @@ public class Client {
                 };
         return OpenapiUtil.doRPCRequest("/collect/collectImgData", request, type);
     }
+
 
 }
