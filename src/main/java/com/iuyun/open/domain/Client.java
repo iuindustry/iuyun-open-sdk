@@ -2,10 +2,13 @@ package com.iuyun.open.domain;
 
 import com.alibaba.fastjson2.TypeReference;
 import com.iuyun.open.config.Config;
+import com.iuyun.open.model.request.BaseRequest;
 import com.iuyun.open.model.request.collection.BatchCollectDataRequest;
 import com.iuyun.open.model.request.collection.CollectDataRequest;
+import com.iuyun.open.model.request.collection.CollectImgDataRequest;
 import com.iuyun.open.model.request.metadata.MetadataQueryRequest;
 import com.iuyun.open.model.response.BaseResponse;
+import com.iuyun.open.model.response.CreateSecurityTokenResponse;
 import com.iuyun.open.model.response.PageResponse;
 import com.iuyun.open.model.response.ResponseEntity;
 import com.iuyun.open.model.response.metadata.MetadataResponse;
@@ -45,8 +48,30 @@ public class Client {
         return OpenapiUtil.doRPCRequest("/metadata/query", request, type);
     }
 
-    public void queryObsToken() {
 
+    /**
+     * 获取临时OBS的AK/SK/SecurityToken
+     *
+     * @return 临时OBS的AK/SK/SecurityToken
+     */
+    public CreateSecurityTokenResponse queryObsToken() {
+        TypeReference<ResponseEntity<CreateSecurityTokenResponse>> type =
+                new TypeReference<ResponseEntity<CreateSecurityTokenResponse>>() {
+                };
+        return OpenapiUtil.doRPCRequest("/obs/getSecurityToken", new BaseRequest(), type);
     }
+
+    /**
+     * 采集图片类型数据
+     * @param request 数据采集入参
+     * @return 临时OBS的AK/SK/SecurityToken
+     */
+    public CreateSecurityTokenResponse collectImgData(CollectImgDataRequest request) {
+        TypeReference<ResponseEntity<CreateSecurityTokenResponse>> type =
+                new TypeReference<ResponseEntity<CreateSecurityTokenResponse>>() {
+                };
+        return OpenapiUtil.doRPCRequest("/collect/collectImgData", request, type);
+    }
+
 
 }
