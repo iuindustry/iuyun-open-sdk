@@ -7,11 +7,6 @@ public class CreateSecurityTokenResponse extends BaseResponse {
     private String access;
 
     /**
-     * AK/SK和securitytoken的过期时间。响应参数为UTC时间格式，北京时间为UTC+8小时
-     */
-    private String expires_at;
-
-    /**
      * 获取的SK
      */
     private String secret;
@@ -21,14 +16,19 @@ public class CreateSecurityTokenResponse extends BaseResponse {
      */
     private String securitytoken;
 
+    /**
+     * 上传文件的桶
+     */
+    private String bucketName;
+
     public CreateSecurityTokenResponse() {
     }
 
-    public CreateSecurityTokenResponse(String access, String expires_at, String secret, String securitytoken) {
+    public CreateSecurityTokenResponse(String access, String secret, String securitytoken, String bucketName) {
         this.access = access;
-        this.expires_at = expires_at;
         this.secret = secret;
         this.securitytoken = securitytoken;
+        this.bucketName = bucketName;
     }
 
     public String getAccess() {
@@ -37,14 +37,6 @@ public class CreateSecurityTokenResponse extends BaseResponse {
 
     public void setAccess(String access) {
         this.access = access;
-    }
-
-    public String getExpires_at() {
-        return expires_at;
-    }
-
-    public void setExpires_at(String expires_at) {
-        this.expires_at = expires_at;
     }
 
     public String getSecret() {
@@ -61,5 +53,13 @@ public class CreateSecurityTokenResponse extends BaseResponse {
 
     public void setSecuritytoken(String securitytoken) {
         this.securitytoken = securitytoken;
+    }
+
+    public String getBucketName() {
+        return bucketName;
+    }
+
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
     }
 }
