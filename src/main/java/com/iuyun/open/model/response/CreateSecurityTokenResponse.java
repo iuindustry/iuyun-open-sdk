@@ -21,14 +21,20 @@ public class CreateSecurityTokenResponse extends BaseResponse {
      */
     private String bucketName;
 
+    /**
+     * 端点地址
+     */
+    private String endpoint;
+
     public CreateSecurityTokenResponse() {
     }
 
-    public CreateSecurityTokenResponse(String access, String secret, String securitytoken, String bucketName) {
+    public CreateSecurityTokenResponse(String access, String secret, String securitytoken, String bucketName, String endpoint) {
         this.access = access;
         this.secret = secret;
         this.securitytoken = securitytoken;
         this.bucketName = bucketName;
+        this.endpoint = endpoint;
     }
 
     public String getAccess() {
@@ -61,5 +67,13 @@ public class CreateSecurityTokenResponse extends BaseResponse {
 
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 }
