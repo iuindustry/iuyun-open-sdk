@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.TypeReference;
 import com.iuyun.open.config.Config;
 import com.iuyun.open.model.request.BaseRequest;
 import com.iuyun.open.model.request.collection.BatchCollectDataRequest;
+import com.iuyun.open.model.request.collection.CollectClientData;
 import com.iuyun.open.model.request.collection.CollectDataRequest;
 import com.iuyun.open.model.request.collection.CollectImgDataRequest;
 import com.iuyun.open.model.request.metadata.MetadataQueryRequest;
@@ -71,6 +72,10 @@ public class Client {
                 new TypeReference<ResponseEntity<CreateSecurityTokenResponse>>() {
                 };
         return OpenapiUtil.doRPCRequest("/collect/collectImgData", request, type);
+    }
+
+    public void collectClientData(CollectClientData request){
+        OpenapiUtil.doRPCRequest("/clientData/collectData", request, new TypeReference<ResponseEntity<BaseResponse>>() {});
     }
 
 
