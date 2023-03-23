@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.iuyun</groupId>
     <artifactId>open-sdk</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <name>iuyun-open-sdk</name>
     <packaging>jar</packaging>
     <description>iuyun-open-sdk</description>
