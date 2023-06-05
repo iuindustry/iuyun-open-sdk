@@ -48,7 +48,7 @@ public class Main {
         Config config = Config.build(
                 "<your-app-id>", // IU云为企业分配的 APPID，联系IU云管理员提供 
                 "<your-secret>", //IU云的SECRET，联系IU云管理员提供
-                "<your-endpoint>"); //默认填写："api.iuindustry.com"
+                "<your-endpoint>"); //默认填写："open.iuindustry.com"
         Client client = new Client(config);
         
         //上传单个示例
