@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.iuyun</groupId>
     <artifactId>open-sdk</artifactId>
-    <version>1.0.6</version>
-    <name>iuyun-open-sdk</name>
+    <version>1.0.7</version>
+    <name>iucloud-open-sdk</name>
     <packaging>jar</packaging>
-    <description>iuyun-open-sdk</description>
+    <description>iucloud-open-sdk</description>
     <url>http://www.iuyun.com</url>
     <licenses>
         <license>
@@ -22,20 +22,20 @@
         <developer>
             <name>jiawanneng</name>
             <email>jiawanneng@iuindustry.com</email>
-            <organization>https://github.com/iudcloud</organization>
+            <organization>https://github.com/iuindustry</organization>
             <timezone>+8</timezone>
         </developer>
     </developers>
     <!--开源地址-->
     <scm>
-        <connection>scm:git:git@github.com:iudcloud/iuyun-open-sdk.git</connection>
-        <developerConnection>scm:gitgit@github.com:iudcloud/iuyun-open-sdk.git</developerConnection>
-        <url>https://github.com/iudcloud/iuyun-open-sdk/</url>
+        <connection>scm:git:git@github.com:iuindustry/iucloud-open-sdk.git</connection>
+        <developerConnection>scm:gitgit@github.com:iuindustry/iucloud-open-sdk.git</developerConnection>
+        <url>https://github.com/iuindustry/iucloud-open-sdk/</url>
     </scm>
     <!--  Issue地址  -->
     <issueManagement>
     <system>Github Issue</system>
-    <url>https://github.com/iudcloud/iuyun-open-sdk/issues</url>
+    <url>https://github.com/iuindustry/iucloud-open-sdk/issues</url>
     </issueManagement>
     <distributionManagement>
         <snapshotRepository>
@@ -100,19 +100,19 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>2.9.1</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-javadocs</id>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
