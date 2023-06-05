@@ -7,7 +7,7 @@
 这里向您介绍如何获取 IUYUN OPEN SDK for Java 并开始调用。
 如果您在使用 IUYUN OPEN SDK for Java 的过程中遇到任何问题，欢迎在当前 GitHub
 
-[提交 Issue](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 
+[提交 Issue](https://github.com/iuindustry/iuyun-open-sdk/issues/new) 
 
 ## 环境要求
 1. IUYUN OPEN SDK for Java 需要1.6以上的JDK。
@@ -78,7 +78,7 @@ public class Main {
 ```
 
 ## 问题
-[提交 Issue](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 
+[提交 Issue](https://github.com/iuindustry/iuyun-open-sdk/issues/new) 
 
 ## 发行说明
 每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
