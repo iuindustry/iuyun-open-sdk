@@ -7,7 +7,7 @@
 这里向您介绍如何获取 IUYUN OPEN SDK for Java 并开始调用。
 如果您在使用 IUYUN OPEN SDK for Java 的过程中遇到任何问题，欢迎在当前 GitHub
 
-[提交 Issue](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 
+[提交 Issue](https://github.com/iuindustry/iuyun-open-sdk/issues/new) 
 
 ## 环境要求
 1. IUYUN OPEN SDK for Java 需要1.6以上的JDK。
@@ -19,7 +19,7 @@
 <dependency>
     <groupId>com.iuyun</groupId>
     <artifactId>open-sdk</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.7/version>
 </dependency>
 ```
 
@@ -46,28 +46,31 @@ public class Main {
     public static void main(String[] args) {
         // 创建Client实例并初始化
         Config config = Config.build(
-                "<your-app-id>", // IU云为企业分配的 APPID 
-                "<your-secret>", //IU云的SECRET
-                "<your-endpoint>"); //"api.iuindustry.com"
+                "<your-app-id>", // IU云为企业分配的 APPID，联系IU云管理员提供 
+                "<your-secret>", //IU云的SECRET，联系IU云管理员提供
+                "<your-endpoint>"); //默认填写："api.iuindustry.com"
         Client client = new Client(config);
-        //上传单个
+        
+        //上传单个示例
         CollectDataRequest request = new CollectDataRequest();
-        request.setDataCode("001");
-        request.setDataTime("2021-12-26 20:48:10");
-        request.setStatisticsValue("1");
-        client.collectData(request);
-        //批量上传
+        request.setDataCode("001");  //IU云数据ID
+        request.setDataTime("2021-12-26 20:48:10"); //采集时间
+        request.setStatisticsValue("1"); //采集值
+        client.collectData(request); //上传至IU云
+        
+        //批量上传示例
         CollectData data1 = new CollectDataImpl();
-        data1.setDataCode("001");
-        data1.setDataTime("2021-12-26 20:48:10");
-        data1.setStatisticsValue("1");
+        data1.setDataCode("001"); //IU云数据ID
+        data1.setDataTime("2021-12-26 20:48:10"); //采集时间
+        data1.setStatisticsValue("1"); //采集值
         CollectData data2 = new CollectDataImpl();
-        data2.setDataCode("002");
-        data2.setDataTime("2021-12-26 20:49:10");
-        data2.setStatisticsValue("2");
+        data2.setDataCode("002"); //IU云数据ID
+        data2.setDataTime("2021-12-26 20:49:10"); //采集时间
+        data2.setStatisticsValue("2"); //采集值
         BatchCollectDataRequest batchRequest = new BatchCollectDataRequest(
                 Arrays.asList(data1,data2)
         );
+        //上传至IU云
         client.batchCollectData(batchRequest);
 
     }
@@ -75,7 +78,7 @@ public class Main {
 ```
 
 ## 问题
-[提交 Issue](https://github.com/iudcloud/iuyun-open-sdk/issues/new) 
+[提交 Issue](https://github.com/iuindustry/iuyun-open-sdk/issues/new) 
 
 ## 发行说明
 每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
