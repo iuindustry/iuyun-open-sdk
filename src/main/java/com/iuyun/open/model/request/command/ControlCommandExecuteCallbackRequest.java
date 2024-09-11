@@ -8,7 +8,7 @@ public class ControlCommandExecuteCallbackRequest extends BaseRequest {
     /**
      * 指令记录ID
      */
-    private String id;
+    private Long id;
     /**
      * 是否执行成功
      */
@@ -26,11 +26,11 @@ public class ControlCommandExecuteCallbackRequest extends BaseRequest {
 
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
