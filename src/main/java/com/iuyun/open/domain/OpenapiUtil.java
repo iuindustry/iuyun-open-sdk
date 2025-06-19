@@ -31,7 +31,7 @@ class OpenapiUtil {
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(jsonMediaType, JSON.toJSONString(request));
         Request.Builder builder = new Request.Builder()
-                .url("https://" + config.getEndpoint() + url)
+                .url("http://" + config.getEndpoint() + url)
                 .addHeader("X-Request-Id", request.getRequestId())
                 .addHeader("X-Access-Auth-Token", getToken())
                 .post(body);
@@ -69,7 +69,7 @@ class OpenapiUtil {
         if (System.currentTimeMillis() < expiresIn) {
             return token;
         }
-        String tokenUrl = "https://" + config.getEndpoint() + "/auth/token";
+        String tokenUrl = "http://" + config.getEndpoint() + "/auth/token";
         OkHttpClient client = new OkHttpClient();
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         TokenRequest request = new TokenRequest();
