@@ -18,9 +18,9 @@ class OpenapiUtil {
 
     private final Config config;
 
-    private volatile static String token;
+    private volatile String token;
 
-    private volatile static Long expiresIn = 0L;
+    private volatile Long expiresIn = 0L;
 
     public OpenapiUtil(Config config) {
         this.config = config;
