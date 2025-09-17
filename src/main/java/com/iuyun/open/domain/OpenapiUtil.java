@@ -16,13 +16,17 @@ import java.util.UUID;
 
 class OpenapiUtil {
 
-    private static Config config;
+    private final Config config;
 
     private volatile static String token;
 
     private volatile static Long expiresIn = 0L;
 
-    public static <T extends BaseResponse> T doRPCRequest(String url, BaseRequest request, TypeReference<ResponseEntity<T>> responseType) {
+    public OpenapiUtil(Config config) {
+        this.config = config;
+    }
+
+    public <T extends BaseResponse> T doRPCRequest(String url, BaseRequest request, TypeReference<ResponseEntity<T>> responseType) {
         if (StringUtils.isBlank(request.getRequestId())) {
             request.setRequestId(UUID.randomUUID().toString().replace("-", ""));
         }
@@ -31,7 +35,7 @@ class OpenapiUtil {
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(jsonMediaType, JSON.toJSONString(request));
         Request.Builder builder = new Request.Builder()
-                .url("http://" + config.getEndpoint() + url)
+                .url("http://" + this.config.getEndpoint() + url)
                 .addHeader("X-Request-Id", request.getRequestId())
                 .addHeader("X-Access-Auth-Token", getToken())
                 .post(body);
@@ -51,8 +55,8 @@ class OpenapiUtil {
         try {
             result = JSON.parseObject(resp.body().string(), responseType);
             resp.close();
-            if(!result.isSuccess()){
-                throw new BusinessException(result.getCode(),result.getException());
+            if (!result.isSuccess()) {
+                throw new BusinessException(result.getCode(), result.getException());
             }
         } catch (IOException e) {
             throw new BusinessException("error  e:" + e);
@@ -60,12 +64,7 @@ class OpenapiUtil {
         return result.getData();
     }
 
-    public static void setConfig(Config config) {
-        OpenapiUtil.config = config;
-    }
-
-
-    private synchronized static String getToken() {
+    private synchronized String getToken() {
         if (System.currentTimeMillis() < expiresIn) {
             return token;
         }
@@ -105,7 +104,7 @@ class OpenapiUtil {
         return token;
     }
 
-    private static class TokenRequest extends BaseRequest {
+    private class TokenRequest extends BaseRequest {
         private String appId;
 
         private String secret;

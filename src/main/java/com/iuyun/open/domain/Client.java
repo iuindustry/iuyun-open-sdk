@@ -14,9 +14,10 @@ import com.iuyun.open.model.response.metadata.MetadataResponse;
 
 public class Client {
 
-    public Client(Config config) {
+    private final OpenapiUtil openapiUtil;
 
-        OpenapiUtil.setConfig(config);
+    public Client(Config config) {
+        this.openapiUtil = new OpenapiUtil(config);
     }
 
     /**
@@ -25,7 +26,7 @@ public class Client {
      * @param request 数据采集入参
      */
     public void collectData(CollectDataRequest request) {
-        OpenapiUtil.doRPCRequest("/collect/collectData", request, new TypeReference<ResponseEntity<BaseResponse>>() {
+        openapiUtil.doRPCRequest("/collect/collectData", request, new TypeReference<ResponseEntity<BaseResponse>>() {
         });
     }
 
@@ -35,7 +36,7 @@ public class Client {
      * @param request 数据采集入参
      */
     public void batchCollectData(BatchCollectDataRequest request) {
-        OpenapiUtil.doRPCRequest("/collect/v2/collectDatas", request, new TypeReference<ResponseEntity<BaseResponse>>() {
+        openapiUtil.doRPCRequest("/collect/v2/collectDatas", request, new TypeReference<ResponseEntity<BaseResponse>>() {
         });
     }
 
@@ -47,7 +48,7 @@ public class Client {
     public PageResponse<MetadataResponse> queryMetadata(MetadataQueryRequest request) {
         TypeReference<ResponseEntity<PageResponse<MetadataResponse>>> type = new TypeReference<ResponseEntity<PageResponse<MetadataResponse>>>() {
         };
-        return OpenapiUtil.doRPCRequest("/metadata/query", request, type);
+        return openapiUtil.doRPCRequest("/metadata/query", request, type);
     }
 
 
@@ -60,7 +61,7 @@ public class Client {
         TypeReference<ResponseEntity<CreateSecurityTokenResponse>> type =
                 new TypeReference<ResponseEntity<CreateSecurityTokenResponse>>() {
                 };
-        return OpenapiUtil.doRPCRequest("/obs/getSecurityToken", new BaseRequest(), type);
+        return openapiUtil.doRPCRequest("/obs/getSecurityToken", new BaseRequest(), type);
     }
 
     /**
@@ -73,16 +74,16 @@ public class Client {
         TypeReference<ResponseEntity<CreateSecurityTokenResponse>> type =
                 new TypeReference<ResponseEntity<CreateSecurityTokenResponse>>() {
                 };
-        return OpenapiUtil.doRPCRequest("/collect/collectImgData", request, type);
+        return openapiUtil.doRPCRequest("/collect/collectImgData", request, type);
     }
 
     public void collectClientData(CollectClientData request) {
-        OpenapiUtil.doRPCRequest("/clientData/collectData", request, new TypeReference<ResponseEntity<BaseResponse>>() {
+        openapiUtil.doRPCRequest("/clientData/collectData", request, new TypeReference<ResponseEntity<BaseResponse>>() {
         });
     }
 
     public Boolean checkExecuteCode(String executeCode) {
-        ValidateControlRecordResponse validateControlRecordResponse = OpenapiUtil.doRPCRequest("/command/execute/check/" + executeCode, new BaseRequest(), new TypeReference<ResponseEntity<ValidateControlRecordResponse>>() {
+        ValidateControlRecordResponse validateControlRecordResponse = openapiUtil.doRPCRequest("/command/execute/check/" + executeCode, new BaseRequest(), new TypeReference<ResponseEntity<ValidateControlRecordResponse>>() {
         });
         return validateControlRecordResponse.getSuccess();
     }
@@ -93,7 +94,7 @@ public class Client {
      * @param request 回调入参
      */
     public void executeCallback(ControlCommandExecuteCallbackRequest request) {
-        OpenapiUtil.doRPCRequest("/command/execute/callback", request, new TypeReference<ResponseEntity<BaseResponse>>() {
+        openapiUtil.doRPCRequest("/command/execute/callback", request, new TypeReference<ResponseEntity<BaseResponse>>() {
         });
 
     }
