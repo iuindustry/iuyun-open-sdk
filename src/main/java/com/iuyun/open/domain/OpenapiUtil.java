@@ -26,7 +26,7 @@ class OpenapiUtil {
         this.config = config;
     }
 
-    public <T extends BaseResponse> T doRPCRequest(String url, BaseRequest request, TypeReference<ResponseEntity<T>> responseType) {
+    public <T> T doRPCRequest(String url, BaseRequest request, TypeReference<ResponseEntity<T>> responseType) {
         if (StringUtils.isBlank(request.getRequestId())) {
             request.setRequestId(UUID.randomUUID().toString().replace("-", ""));
         }

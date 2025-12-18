@@ -3,14 +3,13 @@ package com.iuyun.open.domain;
 import com.alibaba.fastjson2.TypeReference;
 import com.iuyun.open.config.Config;
 import com.iuyun.open.model.request.BaseRequest;
-import com.iuyun.open.model.request.collection.BatchCollectDataRequest;
-import com.iuyun.open.model.request.collection.CollectClientData;
-import com.iuyun.open.model.request.collection.CollectDataRequest;
-import com.iuyun.open.model.request.collection.CollectImgDataRequest;
+import com.iuyun.open.model.request.collection.*;
 import com.iuyun.open.model.request.command.ControlCommandExecuteCallbackRequest;
 import com.iuyun.open.model.request.metadata.MetadataQueryRequest;
 import com.iuyun.open.model.response.*;
 import com.iuyun.open.model.response.metadata.MetadataResponse;
+
+import java.util.List;
 
 public class Client {
 
@@ -97,6 +96,11 @@ public class Client {
         openapiUtil.doRPCRequest("/command/execute/callback", request, new TypeReference<ResponseEntity<BaseResponse>>() {
         });
 
+    }
+
+    public List<CollectDataRes> queryByPage(CollectDataQueryRequest request){
+        TypeReference<ResponseEntity<List<CollectDataRes>>> type = new TypeReference<ResponseEntity<List<CollectDataRes>>>() {};
+        return openapiUtil.doRPCRequest("/data/queryByPage", request, type);
     }
 
 }
