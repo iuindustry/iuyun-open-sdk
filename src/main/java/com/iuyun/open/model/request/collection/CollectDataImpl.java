@@ -31,6 +31,10 @@ public class CollectDataImpl implements CollectData {
      * 统计结果
      */
     private String statisticsValue;
+     /**
+      * 地理位置(统计数据时该值不需要传递)
+      */
+    private String geographicalLocation;
 
     @Override
     public String getDataCode() {
@@ -80,5 +84,15 @@ public class CollectDataImpl implements CollectData {
     @Override
     public void setStatisticsValue(String statisticsValue) {
         this.statisticsValue = statisticsValue;
+    }
+
+    @Override
+    public String getGeographicalLocation() {
+        return geographicalLocation;
+    }
+
+    @Override
+    public void setGeographicalLocation(String geographicalLocation) {
+        this.geographicalLocation = geographicalLocation;
     }
 }

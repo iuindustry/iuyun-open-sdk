@@ -53,4 +53,14 @@ public interface CollectData {
      * @param statisticsValue 数据统计后的值
      */
     void setStatisticsValue(String statisticsValue);
+
+     /**
+     * @return 地理位置
+     */
+    String getGeographicalLocation();
+
+    /**
+     * @param geographicalLocation 地理位置
+     */
+    void setGeographicalLocation(String geographicalLocation);
 }

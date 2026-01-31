@@ -34,6 +34,10 @@ public class CollectDataRequest extends BaseRequest implements CollectData {
      * 统计结果
      */
     private String statisticsValue;
+    /**
+     * 地理位置(统计数据时该值不需要传递)
+     */
+    private String geographicalLocation;
 
     @Override
     public String getDataCode() {
@@ -74,5 +78,13 @@ public class CollectDataRequest extends BaseRequest implements CollectData {
 
     public void setStatisticsValue(String statisticsValue) {
         this.statisticsValue = statisticsValue;
+    }
+
+    public String getGeographicalLocation() {
+        return geographicalLocation;
+    }
+
+    public void setGeographicalLocation(String geographicalLocation) {
+        this.geographicalLocation = geographicalLocation;
     }
 }
