@@ -24,14 +24,20 @@ public class CollectImgDataRequest extends BaseRequest {
      */
     private Integer uploadingState;
 
+    /**
+     * 地理位置(统计数据时该值不需要传递)
+     */
+    private String geographicalLocation;
+
     public CollectImgDataRequest() {
     }
 
-    public CollectImgDataRequest(String dataCode, String dataTime, String statisticsValue, Integer uploadingState) {
+    public CollectImgDataRequest(String dataCode, String dataTime, String statisticsValue, Integer uploadingState, String geographicalLocation) {
         this.dataCode = dataCode;
         this.dataTime = dataTime;
         this.statisticsValue = statisticsValue;
         this.uploadingState = uploadingState;
+        this.geographicalLocation = geographicalLocation;
     }
 
     public String getDataCode() {
@@ -64,5 +70,13 @@ public class CollectImgDataRequest extends BaseRequest {
 
     public void setUploadingState(Integer uploadingState) {
         this.uploadingState = uploadingState;
+    }
+
+    public String getGeographicalLocation() {
+        return geographicalLocation;
+    }
+
+    public void setGeographicalLocation(String geographicalLocation) {
+        this.geographicalLocation = geographicalLocation;
     }
 }
