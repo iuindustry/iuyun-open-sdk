@@ -9,9 +9,10 @@ import com.iuyun.open.model.request.metadata.MetadataQueryRequest;
 import com.iuyun.open.model.response.*;
 import com.iuyun.open.model.response.metadata.MetadataResponse;
 
+import java.io.Closeable;
 import java.util.List;
 
-public class Client {
+public class Client implements Closeable {
 
     private final OpenapiUtil openapiUtil;
 
@@ -101,6 +102,11 @@ public class Client {
     public List<CollectDataRes> queryByPage(CollectDataQueryRequest request){
         TypeReference<ResponseEntity<List<CollectDataRes>>> type = new TypeReference<ResponseEntity<List<CollectDataRes>>>() {};
         return openapiUtil.doRPCRequest("/data/queryByPage", request, type);
+    }
+
+    @Override
+    public void close() {
+        openapiUtil.close();
     }
 
 }

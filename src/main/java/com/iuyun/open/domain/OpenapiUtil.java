@@ -12,18 +12,26 @@ import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 class OpenapiUtil {
 
     private final Config config;
 
+    private final OkHttpClient httpClient;
+
     private volatile String token;
 
     private volatile Long expiresIn = 0L;
 
     public OpenapiUtil(Config config) {
-        this.config = config;
+        this(config, new OkHttpClient());
+    }
+
+    OpenapiUtil(Config config, OkHttpClient httpClient) {
+        this.config = Objects.requireNonNull(config, "config");
+        this.httpClient = Objects.requireNonNull(httpClient, "httpClient");
     }
 
     public <T> T doRPCRequest(String url, BaseRequest request, TypeReference<ResponseEntity<T>> responseType) {
@@ -31,7 +39,6 @@ class OpenapiUtil {
             request.setRequestId(UUID.randomUUID().toString().replace("-", ""));
         }
 
-        OkHttpClient client = new OkHttpClient();
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(jsonMediaType, JSON.toJSONString(request));
         Request.Builder builder = new Request.Builder()
@@ -41,27 +48,22 @@ class OpenapiUtil {
                 .post(body);
         Request req = builder.build();
         //同步请求
-        Call call = client.newCall(req);
-        Response resp = null;
-        try {
-            resp = call.execute();
-        } catch (IOException e) {
-            throw new BusinessException("error  e:" + e);
-        }
-        if (resp.code() != 200) {
-            throw new BusinessException("error code:" + resp.code() + " message:" + resp.message() + ", e:" + resp.body().toString());
-        }
-        ResponseEntity<T> result = null;
-        try {
-            result = JSON.parseObject(resp.body().string(), responseType);
-            resp.close();
-            if (!result.isSuccess()) {
-                throw new BusinessException(result.getCode(), result.getException());
+        Call call = httpClient.newCall(req);
+        try (Response resp = call.execute()) {
+            if (resp.code() != 200) {
+                throw new BusinessException("error code:" + resp.code() + " message:" + resp.message() + ", e:" + responseBodyToString(resp));
             }
+            ResponseEntity<T> result = JSON.parseObject(responseBodyToString(resp), responseType);
+            if (result == null) {
+                throw new BusinessException("error empty response");
+            }
+            if (!result.isSuccess()) {
+                throwBusinessException(result.getCode(), result.getException());
+            }
+            return result.getData();
         } catch (IOException e) {
             throw new BusinessException("error  e:" + e);
         }
-        return result.getData();
     }
 
     private synchronized String getToken() {
@@ -69,7 +71,6 @@ class OpenapiUtil {
             return token;
         }
         String tokenUrl = "http://" + config.getEndpoint() + "/auth/token";
-        OkHttpClient client = new OkHttpClient();
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         TokenRequest request = new TokenRequest();
         request.setAppId(config.getAppId());
@@ -82,26 +83,52 @@ class OpenapiUtil {
                 .post(body);
         Request req = builder.build();
         //同步请求
-        Call call = client.newCall(req);
-        Response resp = null;
-        try {
-            resp = call.execute();
+        Call call = httpClient.newCall(req);
+        try (Response resp = call.execute()) {
+            if (resp.code() != 200) {
+                throw new BusinessException("error code:" + resp.code() + " message:" + resp.message() + ", e:" + responseBodyToString(resp));
+            }
+            JSONObject result = JSONObject.parseObject(responseBodyToString(resp));
+            JSONObject data = result == null ? null : result.getJSONObject("data");
+            if (data == null) {
+                throw new BusinessException("error empty token response");
+            }
+            String accessToken = data.getString("accessToken");
+            Long tokenExpiresIn = data.getLong("expiresIn");
+            if (StringUtils.isBlank(accessToken) || tokenExpiresIn == null) {
+                throw new BusinessException("error invalid token response");
+            }
+            token = accessToken;
+            expiresIn = (tokenExpiresIn - 300) * 1000 + System.currentTimeMillis();
+            return token;
         } catch (IOException e) {
             throw new BusinessException("error  e:" + e);
         }
-        JSONObject result = null;
-        if (resp.code() != 200) {
-            throw new BusinessException("error code:" + resp.code() + " message:" + resp.message() + ", e:" + resp.body().toString());
+    }
+
+    void close() {
+        httpClient.dispatcher().executorService().shutdown();
+        httpClient.connectionPool().evictAll();
+        Cache cache = httpClient.cache();
+        if (cache != null) {
+            try {
+                cache.close();
+            } catch (IOException e) {
+                throw new BusinessException("close http client cache failed e:" + e);
+            }
         }
-        try {
-            result = JSONObject.parseObject(resp.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
+    }
+
+    private static String responseBodyToString(Response response) throws IOException {
+        ResponseBody responseBody = response.body();
+        return responseBody == null ? "" : responseBody.string();
+    }
+
+    private static void throwBusinessException(Integer code, String message) {
+        if (code == null) {
+            throw new BusinessException(message);
         }
-        token = result.getJSONObject("data").getString("accessToken");
-        expiresIn = (result.getJSONObject("data").getLong("expiresIn") - 300) * 1000 + System.currentTimeMillis();
-        resp.close();
-        return token;
+        throw new BusinessException(code, message);
     }
 
     private class TokenRequest extends BaseRequest {
