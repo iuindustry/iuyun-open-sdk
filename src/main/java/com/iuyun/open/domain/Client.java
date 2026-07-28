@@ -1,6 +1,6 @@
 package com.iuyun.open.domain;
 
-import com.alibaba.fastjson2.TypeReference;
+import com.alibaba.fastjson.TypeReference;
 import com.iuyun.open.config.Config;
 import com.iuyun.open.model.request.BaseRequest;
 import com.iuyun.open.model.request.collection.*;

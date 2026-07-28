@@ -19,7 +19,7 @@
 <dependency>
     <groupId>com.iuyun</groupId>
     <artifactId>open-sdk</artifactId>
-    <version>1.0.14/version>
+    <version>1.0.21</version>
 </dependency>
 ```
 

@@ -1,8 +1,8 @@
 package com.iuyun.open.domain;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.TypeReference;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.iuyun.open.config.Config;
 import com.iuyun.open.exception.BusinessException;
 import com.iuyun.open.model.request.BaseRequest;
