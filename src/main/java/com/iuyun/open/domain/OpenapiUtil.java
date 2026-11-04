@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 class OpenapiUtil {
 
@@ -26,7 +27,10 @@ class OpenapiUtil {
     private volatile Long expiresIn = 0L;
 
     public OpenapiUtil(Config config) {
-        this(config, new OkHttpClient());
+        this(config, new OkHttpClient.Builder()
+                .callTimeout(10, TimeUnit.MINUTES)
+                .readTimeout(10, TimeUnit.MINUTES)
+                .build());
     }
 
     OpenapiUtil(Config config, OkHttpClient httpClient) {
